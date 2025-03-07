@@ -1,0 +1,46 @@
+services:
+  zones-db:
+    image: postgis/postgis:17-3.5-alpine
+    container_name: zones-db
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - 15432:5432
+    volumes:
+      - ./danger_zones_postgres_data:/var/lib/postgresql/data/
+
+  frontend:
+    container_name: zones-frontend
+    build:
+      context: .
+      dockerfile: frontend.Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_ZONE_BASE_URL=${FE_URL}
+    volumes:
+      - ./safetrip-poc-frontend:/usr/app
+  backend:
+    container_name: zones-backend
+    build:
+      context: .
+      dockerfile: backend.Dockerfile
+    ports:
+      - "8080:8080"
+      - "5005:5005"
+    environment:
+      - DB_URL=${DB_URL}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - JWT_EXPIRATION_TIME=${JWT_EXPIRATION_TIME}
+      - FE_URL=${FE_URL}
+    volumes:
+      - ./safetrip-danger-zones:/usr/app
+    depends_on: 
+      - zones-db
+
+volumes:
+  postgres_data:

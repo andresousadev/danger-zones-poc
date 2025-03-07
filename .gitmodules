@@ -1,0 +1,6 @@
+[submodule "safetrip-poc-frontend"]
+	path = safetrip-poc-frontend
+	url = https://github.com/andresousadev/safetrip-poc-frontend
+[submodule "safetrip-danger-zones"]
+	path = safetrip-danger-zones
+	url = https://github.com/andresousadev/safetrip-danger-zones

@@ -1,0 +1,9 @@
+safetrip-poc-frontend/.git
+safetrip-poc-frontend/.results
+safetrip-poc-frontend/scripts
+safetrip-poc-frontend/*Dockerfile*
+safetrip-poc-frontend/node_modules
+safetrip-poc-frontend/.env
+
+safetrip-danger-zones/target
+safetrip-danger-zones/.idea
